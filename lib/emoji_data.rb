@@ -17,10 +17,10 @@ module EmojiData
 
   # precomputed hashmap for fast precached lookups in .from_unified
   EMOJICHAR_UNIFIED_MAP = {}
-  EMOJI_CHARS.each do |ec|
-    EMOJICHAR_UNIFIED_MAP[ec.unified] = ec
-    ec.variations.each  { |variant| EMOJICHAR_UNIFIED_MAP[variant] = ec }
-  end
+  # EMOJI_CHARS.each do |ec|
+  #   EMOJICHAR_UNIFIED_MAP[ec.unified] = ec
+  #   ec.variations.each  { |variant| EMOJICHAR_UNIFIED_MAP[variant] = ec }
+  # end
 
   # precomputed hashmap for fast precached lookups in .from_short_name
   EMOJICHAR_KEYWORD_MAP = {}
@@ -31,7 +31,6 @@ module EmojiData
   # our constants are only for usage internally
   private_constant :GEM_ROOT, :VENDOR_DATA
   private_constant :EMOJI_CHARS, :EMOJICHAR_UNIFIED_MAP, :EMOJICHAR_KEYWORD_MAP
-
 
   # Returns a list of all known Emoji characters as `EmojiChar` objects.
   #
@@ -133,10 +132,10 @@ module EmojiData
 
   # precompile regex pattern for fast matches in `.scan`
   # needs to be defined after self.chars so not at top of file for now...
-  FBS_REGEXP = Regexp.new(
-    "(?:#{EmojiData.chars({include_variants: true}).join("|")})"
-  )
-  private_constant :FBS_REGEXP
+  # FBS_REGEXP = Regexp.new(
+  #   "(?:#{EmojiData.chars({include_variants: true}).join("|")})"
+  # )
+  # private_constant :FBS_REGEXP
 
   # Scans a string for all encoded emoji characters contained within.
   #
@@ -148,10 +147,10 @@ module EmojiData
   #   >> EmojiData.scan("flying on my 🚀 to visit the 👾 people.")
   #   => [#<EmojiData::EmojiChar... @name="ROCKET", @unified="1F680", ...>,
   #   #<EmojiData::EmojiChar... @name="ALIEN MONSTER", @unified="1F47E", ...>]
-  def self.scan(str)
-    matches = str.scan(FBS_REGEXP)
-    matches.map { |m| EmojiData.from_unified(EmojiData.char_to_unified(m)) }
-  end
+  # def self.scan(str)
+  #   matches = str.scan(FBS_REGEXP)
+  #   matches.map { |m| EmojiData.from_unified(EmojiData.char_to_unified(m)) }
+  # end
 
   # Finds any `EmojiChar` that contains given string in its official name.
   #
@@ -183,7 +182,7 @@ module EmojiData
   # alias old method names for legacy apps
   class << self
     alias_method :find_by_unified, :from_unified
-    alias_method :find_by_str, :scan
+    # alias_method :find_by_str, :scan
   end
 
 
